@@ -1,0 +1,32 @@
+.subject_details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.subName {
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.increment, .decrement {
+    padding: 5px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20%;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.increment {
+    background-color: rgb(10, 204, 10);
+}
+.decrement {
+    background-color: red;
+}
