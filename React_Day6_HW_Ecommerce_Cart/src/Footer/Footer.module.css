@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.top{
+    width:92% ;
+    height: 8vh;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.button_box{
+    width: 60%;
+    height: 5vh;
+    display: grid;
+    place-items: center;
+    margin: auto;
+}
+
+.clear{
+    width: 100px;
+    height: 30px;
+    background-color: #C1BEFF;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+   color: #5148f6;
+}
+
+.price{
+    width: 150px;
+    height: 40px;
+    background-color: #645CFF;
+    display: grid;
+    place-items: center;
+    color: white;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+}
+
+.Total{
+    font-size: 1.3rem;
+    font-weight: 100;
+    letter-spacing: 3px;
+}
+
+.footer{
+    width: 60%;
+    margin: auto;
+    border-top: 1px solid grey;
+}
