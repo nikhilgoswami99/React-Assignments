@@ -17,6 +17,7 @@ function App() {
 
     let values = e.target.value;
     console.log(values);
+    alert("great link is working");
     
     setData({...data, 
       homeValue: values,
