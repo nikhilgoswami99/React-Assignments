@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./App.module.css";
 import Data_Sliders from "./components/sliders/sliders";
 import Chart from "./components/chart/chart";
+import Navbar from "./components/navbar/nav";
 
 function App() {
   const [homeValue, setHomeValue] = useState(3000);
@@ -33,46 +34,38 @@ function App() {
 
       setLoanAmount(loanAmountValue);
       setDownPayment(downPaymentValue);
-    } else if(name === "interest"){
+    } else if (name === "interest") {
       const interestRateValue = value;
 
       setInterestRate(interestRateValue);
-    }
-    else if(name === "tenure"){
+    } else if (name === "tenure") {
       const loanTermValue = value;
-      
+
       setLoanTerm(loanTermValue);
     }
   }
 
-  // calculation of creating pie chart
-  const totalLoanMonths = (loanTerm * 12).toFixed(2);
-  
-  const interestPerMonth = interestRate / 100 / 12;
-  
-  const monthlyPaymentValue =
-    ((loanAmount *
-      interestPerMonth *
-      (1 + interestPerMonth) ** totalLoanMonths) /
-    ((1 + interestPerMonth) ** totalLoanMonths - 1)).toFixed(2);
-    
-
-  const totalInterestGenerated = (monthlyPaymentValue * totalLoanMonths - loanAmount).toFixed(2);
-
   return (
     <>
-      <div>
-      <Data_Sliders
-        homeValue={homeValue}
-        downPayment={downPayment}
-        loanAmount={loanAmount}
-        interestRate={interestRate}
-        loanTerm={loanTerm}
-        onChangeData={(e) => {
-          onChangeData(e);
-        }}
-      ></Data_Sliders>
-      <Chart></Chart>
+      <Navbar></Navbar>
+      <div className={styles.main_content}>
+        <Data_Sliders
+          homeValue={homeValue}
+          downPayment={downPayment}
+          loanAmount={loanAmount}
+          interestRate={interestRate}
+          loanTerm={loanTerm}
+          onChangeData={(e) => {
+            onChangeData(e);
+          }}
+        ></Data_Sliders>
+        <Chart
+          homeValue={homeValue}
+          downPayment={downPayment}
+          loanAmount={loanAmount}
+          interestRate={interestRate}
+          loanTerm={loanTerm}
+        ></Chart>
       </div>
     </>
   );

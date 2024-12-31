@@ -1,0 +1,12 @@
+.navbar {
+    background-color: rgb(25, 118, 211);
+    height: 5rem;
+    display: flex;
+    align-items: center;
+}
+
+.navbar_heading {
+    font-size: 2rem;
+    color: white;
+    margin-left: 5rem;
+}
