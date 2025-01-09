@@ -52,7 +52,9 @@ const generateImage = () =>
       </div>
       <div className="img-container">
         {
-          isGenerated ? <h3>Image is being generated...</h3> : <img src={imgLink} alt="" />
+          isGenerated ? <div className='loader'>
+          <img className='loading' src="https://cdn.pixabay.com/animation/2023/11/09/03/05/03-05-45-320_512.gif" alt="" />
+          </div> : <img className='generated-img' src={imgLink} alt="" />
         }
         
       </div>

@@ -35,9 +35,21 @@ button:active{
     width: 100%;
 }
 
-img {
+.generated-img {
     border-radius: 10px;
     margin-bottom: 2rem;
+}
+
+.loading {
+    margin-top: 2rem;
+    height: 100px;
+}
+
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 h2 {
