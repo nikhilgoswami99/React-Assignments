@@ -1,65 +1,89 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react';
 import axios from 'axios';
-import './App.css'
+import './App.css';
 
 function App() {
-let [text, setText] = useState("");
-let [imgLink, setImgLink] = useState("");
-let [isGenerated, setIsGenerated] = useState(null);
+  const [text, setText] = useState('');
+  const [imgLink, setImgLink] = useState('');
+  const [isGenerated, setIsGenerated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
+  async function fetchData() {
+    const options = {
+      method: 'POST',
+      url: 'https://ai-image-generator14.p.rapidapi.com/',
+      headers: {
+        'x-rapidapi-key': '28f0d22157msha41414361cb81abp1eb3b8jsne3708e88567b',
+        'x-rapidapi-host': 'ai-image-generator14.p.rapidapi.com',
+        'Content-Type': 'application/json',
+      },
+      data: {
+        jsonBody: {
+          function_name: 'image_generator',
+          type: 'image_generation',
+          query: text, // Use user input for the query
+          output_type: 'png',
+        },
+      },
+    };
 
-async function fetchData() {
-  const options = {
-    method: 'POST',
-    url: 'https://chatgpt-42.p.rapidapi.com/texttoimage3',
-    headers: {
-      'x-rapidapi-key': '41ef75cbcamsh58da2adee279124p18cba7jsn021699ab6e69',
-      'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
-      'Content-Type': 'application/json'
-    },
-    data: {
-      text: `${text}`,
-      width: 512,
-      height: 512
+    try {
+      setIsLoading(true);
+      const response = await axios.request(options);
+     // Debug response
+      setImgLink(response.data.message.output_png); // Assume 'output_url' contains the image URL
+      
+      setIsGenerated(true);
+    } catch (error) {
+      console.error('Error fetching image:', error);
+      setIsGenerated(false);
+      alert('Failed to generate image. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
-  };
-  
-  try {
-    const response = await axios.request(options);
-    setImgLink(response.data.generated_image);
-    
-  } catch (error) {
-    console.error(error);
-  } finally{
-    setIsGenerated(false);
   }
-}
 
-const generateImage = () =>
-{
-  fetchData();
-  setIsGenerated(true);
-}
+  const generateImage = () => {
+    if (text.trim() === '') {
+      alert('Please enter some text to generate an image.');
+      return;
+    }
+    fetchData();
+  };
 
   return (
     <>
-      <h2>Image Generation App</h2>
+      <h2>AI Image Generator</h2>
       <div className="input-container">
-        <input id='search-text' onChange={(e) =>{
-          setText(e.target.value)
-        }} className="text-input" type="text" />
-        <button onClick={generateImage} className="submit-btn">Submit</button>
+        <input
+          id="search-text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="text-input"
+          type="text"
+          placeholder="Enter a prompt for image generation"
+        />
+        <button onClick={generateImage} className="submit-btn">
+          Submit
+        </button>
       </div>
       <div className="img-container">
-        {
-          isGenerated ? <div className='loader'>
-          <img className='loading' src="https://cdn.pixabay.com/animation/2023/11/09/03/05/03-05-45-320_512.gif" alt="" />
-          </div> : <img className='generated-img' src={imgLink} alt="" />
-        }
-        
+        {isLoading ? (
+          <div className="loader">
+            <img
+              className="loading"
+              src="https://cdn.pixabay.com/animation/2023/11/09/03/05/03-05-45-320_512.gif"
+              alt="Loading..."
+            />
+          </div>
+        ) : isGenerated ? (
+          <img className="generated-img" src={imgLink} alt="Generated" />
+        ) : (
+          <p>No image generated yet</p>
+        )}
       </div>
     </>
   );
 }
 
-export default App
+export default App;
